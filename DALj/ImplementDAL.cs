@@ -185,14 +185,20 @@ namespace DAL
             PharmacyContext db = new PharmacyContext();
             return db.Medicines.ToList();
         }
-        public List<int> info(string MedicineName, int year)
+        public List<int> info(string medicineName, int year)
         {
+            PharmacyContext db = new PharmacyContext();
             List<int> month = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            List<Prescription> pres = (from x in getAllPrescriptions().ToList() where x.MedicineName == MedicineName select x).ToList();
-            foreach (Prescription pre in pres)
+            List<Prescription> pres = new List<Prescription>();
+            foreach (Prescription item in db.Prescriptions) 
             {
-                if(pre.StartData.Year==year)
-                month[pre.StartData.Month - 1]++;
+                if (item.MedicineName == medicineName)
+                    pres.Add(item);
+            }
+            foreach (var item in pres)
+            {
+                if(item.StartData.Year==year)
+                month[item.StartData.Month - 1]++;
             }
             return month;
 

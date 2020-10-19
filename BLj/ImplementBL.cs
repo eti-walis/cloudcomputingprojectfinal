@@ -152,6 +152,7 @@ namespace BL
         }
         public string IdByName(string name)
         {
+            ImplementDAL dal = new ImplementDAL();
             string id = (from item in dal.getAllMedicines()
                          where item.Name == name
                          select item.MedecienId).FirstOrDefault();
@@ -285,17 +286,17 @@ namespace BL
             if (prescription.EndData <= prescription.StartData)
                 throw new Exception("Dates are not correct, Enter again");
             //check if the medicines don't conflict
-            CheckDrugs check = new CheckDrugs();
-            try
-            {
+            //CheckDrugs check = new CheckDrugs();
+            //try
+            //{
 
-                string s =check.checkDrugs(prescription.PatientId, prescription.Id, prescription.StartData, prescription.EndData);
-            }
-            catch (Exception ex)
-            {
+            //    string s =check.checkDrugs(prescription.PatientId, prescription.Id, prescription.StartData, prescription.EndData);
+            //}
+            //catch (Exception ex)
+            //{
 
-                throw ex;
-            }
+            //    throw ex;
+            //}
 
             try
             {
