@@ -28,7 +28,7 @@ namespace DALj
             //Root Folder of project
             var CSPath = System.Web.Hosting.HostingEnvironment.MapPath("~/");
             using (var stream =
-                           new FileStream("C:\\Users\\User\\Desktop\\CloudComputingProject1-DB-Shira\\CloudComputingProject1-DB-Shira\\DALj\\credentials.json", FileMode.Open, FileAccess.Read))
+                           new FileStream("C:\\Users\\user_2\\Source\\Repos\\cloudcomputingprojectfinal\\DALj\\credentials.json", FileMode.Open, FileAccess.Read))
             {
                 String FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/"); ;
                 String FilePath = Path.Combine(FolderPath, "DriveServiceCredentials.json");
@@ -277,7 +277,9 @@ namespace DALj
 
         public void DeleteFile(string fileId)
         {
-            Google.Apis.Drive.v3.DriveService service = GetService();
+            DriveService service = GetService();
+            FilesResource.GetRequest request = service.Files.Get(fileId);
+
             try
             {
                 // Initial validation.    

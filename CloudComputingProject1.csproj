@@ -157,8 +157,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="GoogleDriveFiles\000.jpg" />
-    <Content Include="GoogleDriveFiles\0000000.jpg" />
     <Content Include="img\about\about-img.jpg" />
     <Content Include="img\about\play.png" />
     <Content Include="img\about\video-bg.png" />
@@ -1078,6 +1076,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
+    <Folder Include="GoogleDriveFiles\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
