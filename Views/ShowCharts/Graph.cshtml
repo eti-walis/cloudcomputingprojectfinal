@@ -1,0 +1,230 @@
+﻿
+@model CloudComputingProject1.Models.MedicineInfo
+
+@{ ViewBag.Title = "Info"; }
+
+<!--sub tabs-->
+<section class="row" id="tmCallToAction">
+    <div class="@*col-lg-8 tm-call-to-action-col*@" style="position:static; left:150px; top:100px;width:30% ">
+        @*<div class="container-fluid">
+            <div class="row tm-brand-row">
+                <div class="col-lg-12 col-11 tm-contact-col">
+                    <div class="tm-nav">*@
+        @*<h6 please choose year></h6>*@
+        @using (Html.BeginForm("Graph", "ShowCharts"))
+        {
+@Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <table>
+                        <tr>
+                            <td>
+                                <select name="year" id="Y" required>
+                                    <option value="">- Year -</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="id" id="N" required>
+                                    <option value="">- Drug -</option>
+                                    @foreach (var item in Model.MedicineList)
+                                    {
+                    <option>@item.Name</option>}
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                           
+                            <input type="submit" value="Show Graph" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" />
+                        </div>
+                    </div>
+
+                </div>}
+    </div>
+
+</section>
+<!-- end sub tabs-->
+
+<!doctype html>
+<html>
+<head>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/utils.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    <meta name="NetsparkQuiltingResult" total-length="4215" removed="0" rules-found="w2339,w2713,w3914,w3082,w5163" />
+</head>
+<body>
+
+
+
+    <div style="width:70%; left:410px; height:400px; top:-120px; position:relative; background-color:white; opacity:0.9;">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+        var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var randomScalingFactor = function () {
+            return Math.round(Math.random() * 100);
+        };
+        var config = {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                datasets: [{
+                    label: "@Model.MedicineName",
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: [
+                         @{ foreach (var item in Model.medicineArray)
+                           {
+                                @(item.ToString()+",")
+
+                           }
+                        }
+                    ],
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: ''
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        },
+                        ticks: {
+                            min: 0,
+                            max: 100,
+
+                            // forces step size to be 5 units
+                            stepSize: 5
+                        }
+                    }]
+                }
+            }
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+        };
+
+        //document.getElementById('randomizeData').addEventListener('click', function () {
+        //    config.data.datasets.forEach(function (dataset) {
+        //        dataset.data = dataset.data.map(function () {
+        //            return randomScalingFactor();
+        //        });
+        //    });
+
+        //    window.myLine.update();
+        //});
+
+        var colorNames = Object.keys(window.chartColors);
+        document.getElementById('addDataset').addEventListener('click', function () {
+            var colorName = colorNames[config.data.datasets.length % colorNames.length];
+            var newColor = window.chartColors[colorName];
+            var newDataset = {
+                label: 'Dataset ' + config.data.datasets.length,
+                backgroundColor: newColor,
+                borderColor: newColor,
+                data: [],
+                fill: false
+            };
+
+            for (var index = 0; index < config.data.labels.length; ++index) {
+                newDataset.data.push(randomScalingFactor());
+            }
+
+            config.data.datasets.push(newDataset);
+            window.myLine.update();
+        });
+
+        
+
+    </script>
+</body>
+
+    @Html.ActionLink("Back ", "LoginAdministratorBtn", "Home", new { Password = 12345 }, new { @class = "my-class" })
+</div>
+</html>
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>}
+

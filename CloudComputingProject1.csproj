@@ -1065,7 +1065,7 @@
     <Content Include="Views\Patient\PatientsList.cshtml" />
     <Content Include="Views\Prescription\AddPrescription.cshtml" />
     <Content Include="Views\Prescription\PrescriptionsList.cshtml" />
-    <Content Include="Views\ShowCharts\Index.cshtml" />
+    <Content Include="Views\ShowCharts\Graph.cshtml" />
     <Content Include="Views\Home\GraphDrug.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\LoginAdministrator.cshtml" />

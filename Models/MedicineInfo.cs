@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using BE;
 namespace CloudComputingProject1.Models
 {
     public class MedicineInfo
@@ -17,5 +17,6 @@ namespace CloudComputingProject1.Models
             medicineArray = array;
         }
         public string MedicineName { get; set; }
+        public List<Medicine> MedicineList { get; set; }
     }
 }

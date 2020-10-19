@@ -135,7 +135,16 @@ namespace BL
                 throw ex;
             }
         }
-        public void AddMedicine(Medicine medicine)
+        public string IdByName(string name)
+        {
+            string id = (from item in dal.getAllMedicines()
+                         where item.Name == name
+                         select item.MedecienId).FirstOrDefault();
+            if (id != null)
+                return id;
+            else throw new Exception("medicine doesn't exist");
+        }
+            public void AddMedicine(Medicine medicine)
         {
             try
             {
