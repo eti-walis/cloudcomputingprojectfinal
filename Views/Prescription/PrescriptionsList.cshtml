@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BE.Prescription>
+
+@{ ViewBag.Title = "PrescriptionsList"; }
+
+
+<br />
+<br />
+<br />
+
+<h2>Prescriptions List</h2>
+<br />
+<br />
+
+<table class="table table-bordered table-hover">
+    <tr style="background-color:#6ec000">
+        <th>
+            @Html.DisplayNameFor(model => model.ReferringDoctorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndData)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReferringDoctorId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PatientId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MedicineName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartData)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndData)
+    </td>
+
+</tr>}
+
+</table>
+<div>
+    @Html.ActionLink("Back ", "LoginAdministratorBtn", "Home", new { Password = 12345 }, new { @class = "my-class" })
+</div>
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>}
+

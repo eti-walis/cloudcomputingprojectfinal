@@ -1,0 +1,124 @@
+﻿@model CloudComputingProject1.Models.DoctorModelClass
+
+@{
+    ViewBag.Title = "EditDoctor";
+}
+<script type="text/javascript">
+
+    function changeLabel(src) {
+        src = src.substring(src.lastIndexOf('\\') + 1, src.lenth);
+        document.getElementById('fileLabel').innerHTML = src;
+
+    }
+
+
+</script>
+<br />
+<br />
+<br />
+<table>
+    <tr>
+        <td style="width:80%">
+            @using (Html.BeginForm("SaveDoctor", "Doctor"))
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>@Model.Name</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-3">Name</label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Specialization</label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Specialization, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Specialization, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Expiration Date</label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mail Address </label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.MailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">ID </label>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Image   </label>
+                    <div class="col-md-4">
+                        <input type="file" class="custom-file-input  col-md-1 form-control" id="customFile" name="filename" onchange="changeLabel(this.value)">
+                        <label class="custom-file-label" id="fileLabel" for="customFile">Choose file</label>
+                    </div>
+                </div>
+
+                <br />
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "DoctorsList", "Doctor", new { @class = "my-class" })
+            </div>
+        </td>
+        <td style="width:20%">
+            <img src="@Model.PicturePath" alt="" class="img-thumbnail">
+        </td>
+    </tr>
+</table>
+
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}

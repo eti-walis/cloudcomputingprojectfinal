@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<!-- start banner Area -->
+<section class="banner-area relative" id="home" style="width:100%;height:600px">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+
+            <div class="banner-content col-lg-8 col-md-12">
+                <h1>
+                    <br />
+                    <br />
+                    <br />
+                    We Care for Your Health
+                    Every Moment
+                </h1>
+                <div>
+                    <div class="btn-toolbar inline-flex flex-middle">
+
+                        <table>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <a href="@Url.Action("LoginAdministrator", "Home")" class="btn primary-btn text-uppercase btn-lg" style="width:100%">Admin</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("logInDoctor", "Doctor")" class="btn primary-btn text-uppercase btn-lg" style="width:100%">Doctor</a>
+                                </td>
+                            </tr>/>
+                        </table>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End banner Area -->
+<!-- Start facilities Area -->
+<section class="facilities-area section-gap">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-7">
+                <div class="title text-center">
+                    <h1 class="mb-10">Our Latest Facilities</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single-facilities">
+                    <span class="lnr lnr-rocket"></span>
+                    <h4>24/7 Emergency</h4>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-facilities">
+                    <span class="lnr lnr-bug"></span>
+                    <h4>Intensive Care</h4>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-facilities">
+                    <span class="lnr lnr-users"></span>
+                    <h4>Family Planning</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End facilities Area -->
+<!-- Start offered-service Area -->
+<section class="offered-service-area section-gap">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 offered-left">
+                <h1 class="text-white">About Us</h1>
+                <p>
+                    One of the characteristics of Western medicine is the administration of prescription drugs as a form of treatment. But the process itself suffers from a number of failure points
+                    Potentials that require reference.
+                </p>
+                <p>
+                    On this site we have created a system that helps in issuing prescriptions, the system will perform a number of tests to minimize potential mistakes
+                    And will keep historical data for drug registration.
+                </p>
+                <p>
+                    We are here for you to keep you healthy ..
+                    <br />
+                    <br />
+                    Contact us:
+                    <br />
+                    <br />
+                    <span class="glyphicon glyphicon-envelope"> Medical@gmail.com</span>
+                    <br />
+                    <br />
+                    <span class="glyphicon glyphicon-earphone"> 03-9091234</span>
+
+                </p>
+                <div class="service-wrap row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single-service">
+                            <div class="thumb">
+                                <img class="img-fluid" src="~/img/prescription.jpg" alt="">
+                            </div>
+                            <a href="#">
+                                <h4 class="text-white">prescription</h4>
+                            </a>
+                            <p>
+                                The prescribing physician views the patient's details and medications he has received in the past.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single-service">
+                            <div class="thumb">
+                                <img class="img-fluid" src="~/img/Graph.jpg" alt="">
+                            </div>
+                            <a href="#">
+                                <h4 class="text-white">Graph</h4>
+                            </a>
+                            <p>
+                                View a graph describing medication consumption by period.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single-service">
+                            <div class="thumb">
+                                <img class="img-fluid" src="~/img/kindsOfDrugs.jpg" alt="">
+                            </div>
+                            <a href="#">
+                                <h4 class="text-white">Check Drugs</h4>
+                            </a>
+                            <p>
+                                When a prescription is issued, it is checked whether there is a discrepancy in the prescription and the medication that the patient is taking at the time
+                                Current.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End offered-service Area -->
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}

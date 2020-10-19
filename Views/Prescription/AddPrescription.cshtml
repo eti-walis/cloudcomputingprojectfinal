@@ -1,0 +1,181 @@
+﻿@model CloudComputingProject1.Models.PrescriptionAndListOfPrescriptions
+
+@{ ViewBag.Title = "AddPrescription"; }
+
+<br />
+
+<table class="table">
+
+    <tr>
+        <td>
+            <div class="col-md-push-6">
+
+                @using (Html.BeginForm("CreatePrescription", "Prescription"))
+                {
+    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <br />
+                        <h2>Add Prescription</h2>
+                        <h6>please enter details to continue</h6>
+                        <br />
+                        <table>
+                            <tr>
+                                <td style="tab-size">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Patient Id</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="patientId" name="patientId" type="text" class="form-control" placeholder="Patient Id" onfocus="this.placeholder = ''" onblur="this.placeholder = 'patient Id'" required="" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Medicine Name</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="MedicineName" name="medicineName" type="text" class="form-control" placeholder="Medicine Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'medicine Name'" required="" />
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Amount</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="Amount" name="Amount" type="text" class="form-control" placeholder="Amount" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Amount'" required="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Start Date</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="StartDate" name="startData" type="date" class="form-control" placeholder="start Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'startData'" required="" />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">End Date</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="EndDate" name="endData" type="date" class="form-control" placeholder="end Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'endDate'" required="" />
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">ReferringDoctor ID</label>
+                                        <div class="col-md-offset-4">
+                                            <input id="EndDate" name="ReferringDoctorId" type="text" class="form-control" placeholder="ReferringDoctor Id" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ReferringDoctorId'" required="" />
+
+
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" />
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>}
+            </div>
+        </td>
+
+        <td>
+            <div class="col-md-offset-6">
+                <br />
+                <h2> Old Prescriptions:</h2>
+
+                <br />
+                <div style="width:100%;overflow:auto; max-height:470px;">
+                    <table class="table table-bordered table-hover">
+                        <tr style="background-color:#6ec000">
+                            <th>
+                                RefferingDoctor Id
+                            </th>
+                            <th>
+                                Patient Id
+                            </th>
+                            <th>
+                                Medicine Name
+                            </th>
+                            
+                            <th>
+                                amount
+                            </th>
+                            <th>
+                                Start Date
+                            </th>
+                            <th>
+                                End Date
+                            </th>
+                        </tr>
+                        @foreach (var item in Model.GetAllPrescriptions())
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferringDoctorId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientId)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicineName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartData)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndData)
+                        </td>
+
+                    </tr>
+}
+                    </table>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+
+</table>
+
+
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>
+}
+

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CloudComputingProject1.Models.DrugModel>
+
+@{
+    ViewBag.Title = "DrugsList";
+}
+
+<br />
+<br />
+
+<p>
+    @Html.ActionLink("Add New", "AddDrug", "Drug", new { @class = "my-class" })
+</p>
+
+
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="card m-3" style="min-width:21rem;max-width:21rem;">
+            <div class="card-header">
+                <h3> @Html.DisplayFor(modelItem => item.Name)</h3>
+            </div>
+            <img class="card-img-top" src="@item.picturePath" alt="">
+            <div class="card-footer text-center  inline-flex align-middle">
+                <div class="btn-toolbar inline-flex flex-middle">
+                    @using (Html.BeginForm("EditDrug", "Drug", new { id = item.MedecienId }))
+                    {
+                        <input type="submit" class="btn btn-primary btn-lg " style="background-color:#83cd00;border-color:#83cd00;" value="EDIT" />
+                    }
+                    @using (Html.BeginForm("DetailsDrug", "Drug", new { id = item.MedecienId }))
+                    {
+                        <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DETAILS" />
+                    }
+                    @using (Html.BeginForm("DeleteDrug", "Drug", new { id = item.MedecienId }))
+                    {
+                        <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DELETE" />
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+<div>
+    @Html.ActionLink("Back ", "LoginAdministratorBtn", "Home", new { Password = 12345 }, new { @class = "my-class" })
+</div>
+
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}

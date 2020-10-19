@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "LoginAdministratorBtn";
+    BL.ImplementBL bl = new BL.ImplementBL();
+}
+<br />
+
+
+
+<section class="banner-area relative" style="width:100%;height:600px">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+            <div class="banner-content col-lg-8 col-md-12">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h2 style="color:white">
+
+                    Choose one of the following:
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </h2>
+                <div>
+                    <table style="width:100%">
+                        <thead>
+                            <tr>
+                                <th> <a href="@Url.Action("DrugsList", "Drug")" class="btn primary-btn text-uppercase">Drugs</a></th>
+                                <th> <a href="@Url.Action("DoctorsList", "Doctor")" class="btn primary-btn text-uppercase">Doctors</a></th>
+                                <th> <a href="@Url.Action("PatientsList", "Patient")" class="btn primary-btn text-uppercase">Patients</a></th>
+                                <th> <a href="@Url.Action("PrescriptionsList", "Prescription")" class="btn primary-btn text-uppercase">Prescriptions</a></th>
+                                <th> <a href="@Url.Action("View", "ShowCharts")" class="btn primary-btn text-uppercase">Graph</a></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<section class="appointment-area">
+    <div class="container">
+        @using (Html.BeginForm("LoginAdministratorBtn", "Home"))
+        {
+            <div class="row justify-content-between align-items-center pb-120 appointment-wrap" style="background-color:#393939">
+                <div class="col-lg-6 col-md-6 appointment-right pt-60 pb-60"  id="content" style="border-color:#69be00;border-style:groove">
+                    <form class="form-wrap" action="#">
+                        <h3 class="pb-20 text-center mb-30">Hello Administrator</h3>
+                        <h6 class="pb-20 text-center mb-30">please enter password to continue</h6>
+                        <input @*id="password"*@ id="content" name="Password" type="password" class="form-control" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required />
+                        <br />
+                        <br />
+                        <input type="submit" id="content1" class="btn primary-btn text-uppercase" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}
+

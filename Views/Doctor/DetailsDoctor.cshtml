@@ -1,0 +1,59 @@
+﻿@model CloudComputingProject1.Models.DoctorModelClass
+
+@{ ViewBag.Title = "DetailsDoctor"; }
+
+
+
+<br />
+<br />
+
+
+
+<div class="row justify-content-center m-3 ">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h1>  @Html.DisplayFor(model => model.Name)</h1>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@Model.PicturePath" alt="">
+                <br />
+                <h4>Specialization:  @Html.DisplayFor(model => model.Specialization)</h4>
+                <h4>ID:  @Html.DisplayFor(model => model.ID)</h4>
+                <h4>ExpirationDate : @Html.DisplayFor(model => model.ExpirationDate)</h4>
+                <h4>Mail Address : @Html.DisplayFor(model => model.MailAddress)</h4>
+            </div>
+
+        </div>
+        <div class="card-footer text-center">
+            @Html.ActionLink("Back to List", "DoctorsList", "Doctor", new { @class = "my-class" })
+        </div>
+    </div>
+
+</div>
+
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>}

@@ -1,0 +1,60 @@
+﻿
+@model CloudComputingProject1.Models.DrugModel
+
+@{
+    ViewBag.Title = "DetailsDrug";
+}
+<br />
+<br />
+<div class="row justify-content-center m-3 ">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h1>  @Html.DisplayFor(model => model.Name)</h1>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@Model.picturePath" alt="">
+                <br />
+                <h4>Producer:  @Html.DisplayFor(model => model.Producer)</h4>
+                <h4>Generic Name:  @Html.DisplayFor(model => model.GenericName)</h4>
+                <h4>Active Ingredients: @Html.DisplayFor(model => model.ActiveIngredients)</h4>
+                <h4>Medecien Id: @Html.DisplayFor(model => model.MedecienId)</h4>
+                <h4> Properties: @Html.DisplayFor(model => model.Properties)</h4>
+            </div>
+
+        </div>
+        <div class="card-footer text-center">
+            @*<a href="@Html.Action( "DrugsList", "Home")" class="btn btn-primary">Back to List</a>*@
+            @Html.ActionLink("Back to List", "DrugsList", "Drug", new { @class = "my-class" })
+        </div>
+    </div>
+
+</div>
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}

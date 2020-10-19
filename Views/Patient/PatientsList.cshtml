@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BE.Patient>
+@{ ViewBag.Title = "PatientsList"; }
+<br />
+<br />
+<br />
+
+<h2>Patients List</h2>
+<br />
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "CreatePatient", "Patient", new { @class = "my-class" })
+</p>
+<table class="table table-bordered table-hover">
+    <tr style="background-color:#6ec000">
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            ID
+        </th>
+        <th>
+            Date Of Birth
+        </th>
+        <th>
+            Gender
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateOfBirth)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditPatient", new { id = item.ID }, new { @class = "my-class" }) |
+        @Html.ActionLink("Delete", "DeletePatient", new { id = item.ID }, new { @class = "my-class" })
+    </td>
+</tr>}
+
+</table>
+<div>
+    @Html.ActionLink("Back ", "LoginAdministratorBtn", "Home", new { Password = 12345 }, new { @class = "my-class" })
+</div>
+
+
+<style>
+    a.my-class {
+        color: #6ec000
+    }
+
+        a.my-class:active {
+            color: #6ec000
+        }
+
+        a.my-class:link {
+            color: #6ec000
+        }
+
+        a.my-class:visited {
+            color: #6ec000
+        }
+</style>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+</script>}
+
