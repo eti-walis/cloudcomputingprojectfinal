@@ -21,19 +21,19 @@
         <div class="card-header">
             <h3> @Html.DisplayFor(modelItem => item.Name)</h3>
         </div>
-        
-        <img class="card-img-top" src="@item.PicturePath" alt=""/>
+
+        <img class="card-img-top" src="@Url.Content(item.PicturePath)" alt="" />
         <div class="card-footer text-center  inline-flex align-middle">
             <div class="btn-toolbar inline-flex flex-middle">
                 @using (Html.BeginForm("EditDoctor", "Doctor", new { id = item.ID }))
                 {
-    <input type="submit" class="btn btn-primary btn-lg " style="background-color:#83cd00;border-color:#83cd00;" value="EDIT" />}
+                    <input type="submit" class="btn btn-primary btn-lg " style="background-color:#83cd00;border-color:#83cd00;" value="EDIT" />}
                 @using (Html.BeginForm("DetailsDoctor", "Doctor", new { id = item.ID }))
                 {
-    <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DETAILS" />}
+                    <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DETAILS" />}
                 @using (Html.BeginForm("DeleteDoctor", "Doctor", new { id = item.ID }))
                 {
-    <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DELETE" />}
+                    <input type="submit" class="btn btn-primary btn-lg" style="background-color:#83cd00;border-color:#83cd00;" value="DELETE" />}
             </div>
 
         </div>

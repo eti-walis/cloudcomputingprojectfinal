@@ -11,15 +11,18 @@ using OpenQA.Selenium.Remote;
 using DALj;
 using System.Web;
 using BEj;
+using BLj;
+using System.IO;
 
 namespace BL
 {
     public class ImplementBL
     {
-        DAL.ImplementDAL dal = new DAL.ImplementDAL();
+        
         ///////////////Administrator//////////////
         public void UpdateAdministrator(Administrator administrator)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.UpdateAdministrator(administrator);
@@ -29,8 +32,10 @@ namespace BL
                 throw ex;
             }
         }
+
         public void addAdministrator(Administrator administrator)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.addAdministrator(administrator);
@@ -44,14 +49,17 @@ namespace BL
         }
         public void deleteAdministrator(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             dal.deleteAdministrator(id);
         }
         public IEnumerable<Administrator> getAllAdministrators()
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllAdministrators();
         }
         public void isAdministrator(string code)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             if (code != "12345")
             {
                 throw new Exception("incorrect code");
@@ -62,6 +70,7 @@ namespace BL
         //////////Doctor//////////////////////
         public void UpdateDoctor(Doctor doctor)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.UpdateDoctor(doctor);
@@ -73,6 +82,7 @@ namespace BL
         }
         public void AddDoctor(Doctor doctor)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.AddDoctor(doctor);
@@ -84,6 +94,7 @@ namespace BL
         }
         public void deleteDoctor(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.deleteDoctor(id);
@@ -96,6 +107,7 @@ namespace BL
 
         public Doctor getDoctor(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             Doctor d = (from item in dal.getAllDoctors().ToList()
                         where item.ID == id
                         select item).FirstOrDefault();
@@ -106,10 +118,12 @@ namespace BL
         }
         public IEnumerable<Doctor> getAllDoctors()
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllDoctors();
         }
         public void IsExistDoctor(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.IsExistDoctor(id);
@@ -125,6 +139,7 @@ namespace BL
         ///////////Medicine////////////////
         public void UpdateMedicine(Medicine medicine)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.UpdateMedicine(medicine);
@@ -146,8 +161,10 @@ namespace BL
         }
             public void AddMedicine(Medicine medicine)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
+               
                 dal.AddMedicine(medicine);
 
             }
@@ -159,6 +176,7 @@ namespace BL
         }
         public void deleteMediciner(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.deleteMediciner(id);
@@ -171,6 +189,7 @@ namespace BL
         }
         public Medicine GetMedicine(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             Medicine m = (from item in dal.getAllMedicines().ToList()
                           where item.MedecienId == id
                           select item).FirstOrDefault();
@@ -181,6 +200,7 @@ namespace BL
         }
         public IEnumerable<Medicine> getAllMedicines()
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllMedicines();
         }
         public List<int> info(string MedicineName, int year)
@@ -191,6 +211,7 @@ namespace BL
         //////////Patient////////////////
         public void UpdatePatient(Patient patient)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.UpdatePatient(patient);
@@ -202,6 +223,7 @@ namespace BL
         }
         public void AddPatient(Patient patient)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.AddPatient(patient);
@@ -214,6 +236,7 @@ namespace BL
         }
         public void deletePatient(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             try
             {
                 dal.deletePatient(id);
@@ -228,6 +251,7 @@ namespace BL
 
         public Patient GetPatient(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             Patient p = (from item in dal.getAllPatients().ToList()
                          where item.ID == id
                          select item).FirstOrDefault();
@@ -238,26 +262,41 @@ namespace BL
         }
         public IEnumerable<Prescription> PatientPrescriptions(string id)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllPrescriptions().Where(item => item.PatientId == id);
 
 
         }
         public IEnumerable<Patient> getAllPatients()
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllPatients();
         }
 
         /////////////////Prescription//////////
         public void AddPrescription(Prescription prescription)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             Doctor d = getDoctor(prescription.ReferringDoctorId);
             if (d.ExpirationDate.Date < DateTime.Today.Date)
             {
                 throw new Exception("Invalid doctor license");
             }
+            if (prescription.EndData <= prescription.StartData)
+                throw new Exception("Dates are not correct, Enter again");
             //check if the medicines don't conflict
+            CheckDrugs check = new CheckDrugs();
+            try
+            {
 
-            //more checking
+                string s =check.checkDrugs(prescription.PatientId, prescription.Id, prescription.StartData, prescription.EndData);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             try
             {
                 dal.AddPrescription(prescription);
@@ -271,10 +310,12 @@ namespace BL
 
         public IEnumerable<Prescription> getAllPrescriptions()
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             return dal.getAllPrescriptions();
         }
         public int MedicinePerPeriod(string medicine, DateTime startDate, DateTime endDate)
         {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
             int sum = 0;
             foreach (var item in dal.getAllPrescriptions())
             {
@@ -333,14 +374,23 @@ namespace BL
             }
 
         }
-        GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
+        public void UpdateMedicinePicture(string medicineId , HttpPostedFileBase file)
+        {
+            DAL.ImplementDAL dal = new DAL.ImplementDAL();
+            dal.UpdateMedicinePicture(medicineId, file);
+        }
+
+       
 
         public string DownloadFileByName(string fileName)
 
         {
+            GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
             try
             {
-                return googleDriveDAL.DownloadGoogleFileByName(fileName);
+                return Path.Combine("~/GoogleDriveFiles", Path.GetFileName(googleDriveDAL.DownloadGoogleFileByName(fileName))) ;
+
+               //googleDriveDAL.DownloadGoogleFileByName(fileName);
             }
             catch (Exception ex)
             {
@@ -349,26 +399,63 @@ namespace BL
         }
         public void UplaodFileOnDrive(HttpPostedFileBase file, string drugId)
         {
-            googleDriveDAL.UplaodFileOnDrive(file, drugId);
+            if (validMedicinePicture(file) == true)
+            {
+                GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
+                googleDriveDAL.UplaodFileOnDrive(file, drugId);
+            }
+            else
+                throw new Exception("the picture is not a medicine");
+
         }
 
         public void UplaodFileOnDriveInFolder(HttpPostedFileBase file, string folderName)
         {
-            googleDriveDAL.UplaodFileOnDriveInFolder(file, folderName);
+            if (validMedicinePicture(file) == true)
+            {
+                GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
+                googleDriveDAL.UplaodFileOnDriveInFolder(file, folderName);
+            }
+            else
+                throw new Exception("the picture is not a medicine");
         }
         public void UplaodFileOnDriveInFolder(HttpPostedFileBase file, string newFileName, string folderName)
         {
-            googleDriveDAL.UplaodFileOnDriveInFolder(file, newFileName, folderName);
+            if (validMedicinePicture(file) == true)
+            {
+                GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
+                googleDriveDAL.UplaodFileOnDriveInFolder(file, newFileName, folderName);
+            }
+            else
+                throw new Exception("the picture is not a medicine");
+
         }
 
         public void CreateFolder(string FolderName)
         {
+            GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
             googleDriveDAL.CreateFolder(FolderName);
         }
 
         public void DeleteFile(string fileId)
         {
+            GoogleDriveApi googleDriveDAL = new GoogleDriveApi();
             googleDriveDAL.DeleteFile(fileId);
         }
+        private bool validMedicinePicture(HttpPostedFileBase file)
+        {
+            string path = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),Path.GetFileName(file.FileName));
+            file.SaveAs(path);
+            ImageTagsLogic r = new ImageTagsLogic();
+            List<string> tagsPictures = r.GetTags(path);
+            foreach (var item in tagsPictures)
+            {
+                if (item.Contains("medicine") || item.Contains("drug") || item.Contains("pill") || item.Contains("medical"))
+               
+                    return true;
+            }
+            return false;
+        }
+
     }
 }

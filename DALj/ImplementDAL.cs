@@ -19,10 +19,11 @@ namespace DAL
 {
     public class ImplementDAL
     {
-        PharmacyContext db = new PharmacyContext();
+       
         ///////////////Administrator//////////////
         public void UpdateAdministrator(Administrator administrator)
         {
+            PharmacyContext db = new PharmacyContext();
             var admin = (from item in db.Administrators.ToList()
                          where (item.ID == administrator.ID)
                          select item).FirstOrDefault();
@@ -41,6 +42,7 @@ namespace DAL
         }
         public void addAdministrator(Administrator administrator)
         {
+            PharmacyContext db = new PharmacyContext();
             foreach (var item in db.Administrators)
             {
                 if (item.ID == administrator.ID)
@@ -53,6 +55,7 @@ namespace DAL
         }
         public void deleteAdministrator(string id)
         {
+            PharmacyContext db = new PharmacyContext();
             var admin = (from item in db.Administrators.ToList()
                          where (item.ID == id)
                          select item).FirstOrDefault();
@@ -70,12 +73,14 @@ namespace DAL
 
         public IEnumerable<Administrator> getAllAdministrators()
         {
+            PharmacyContext db = new PharmacyContext();
             return db.Administrators.ToList();
         }
 
         //////////Doctor//////////////////////
         public void UpdateDoctor(Doctor doctor)
         {
+            PharmacyContext db = new PharmacyContext();
             var doc = (from item in db.Doctors.ToList()
                        where (item.ID == doctor.ID)
                        select item).FirstOrDefault();
@@ -92,6 +97,7 @@ namespace DAL
         }
         public void AddDoctor(Doctor doctor)
         {
+            PharmacyContext db = new PharmacyContext();
             var item = (from n in db.Doctors
                         where n.ID == doctor.ID
                         select n).FirstOrDefault();
@@ -105,6 +111,7 @@ namespace DAL
         }
         public void deleteDoctor(string id)
         {
+            PharmacyContext db = new PharmacyContext();
             var d = (from item in db.Doctors
                      where item.ID == id
                      select item).FirstOrDefault();
@@ -114,17 +121,23 @@ namespace DAL
             {
                 db.Doctors.Remove(d);
                 db.SaveChanges();
+
+
+                GoogleDriveApi gd = new GoogleDriveApi();
+                gd.DeleteFile(id.ToString());
             }
         }
 
         public IEnumerable<Doctor> getAllDoctors()
         {
+            PharmacyContext db = new PharmacyContext();
             return db.Doctors.ToList();
         }
 
         ///////////Medicine////////////////
         public void UpdateMedicine(Medicine medicine)
         {
+            PharmacyContext db = new PharmacyContext();
             var med = (from item in db.Medicines.ToList()
                        where (item.MedecienId == medicine.MedecienId)
                        select item).FirstOrDefault();
@@ -141,6 +154,7 @@ namespace DAL
         }
         public void AddMedicine(Medicine medicine)
         {
+            PharmacyContext db = new PharmacyContext();
             if (db.Medicines.ToList().Exists(item => item.MedecienId == medicine.MedecienId) == false)
             {
                 db.Medicines.Add(medicine);
@@ -150,6 +164,7 @@ namespace DAL
         }
         public void deleteMediciner(string MedecienId)
         {
+            PharmacyContext db = new PharmacyContext();
             var m = (from item in db.Medicines
                      where item.MedecienId == MedecienId
                      select item).FirstOrDefault();
@@ -160,11 +175,14 @@ namespace DAL
                 db.Medicines.Remove(m);
                 db.SaveChanges();
 
+                GoogleDriveApi gd = new GoogleDriveApi();
+                gd.DeleteFile(MedecienId.ToString());
             }
 
         }
         public IEnumerable<Medicine> getAllMedicines()
         {
+            PharmacyContext db = new PharmacyContext();
             return db.Medicines.ToList();
         }
         public List<int> info(string MedicineName, int year)
@@ -182,6 +200,7 @@ namespace DAL
         //////////Patient////////////////
         public void UpdatePatient(Patient patient)
         {
+           
             PharmacyContext db = new PharmacyContext();
             var pat = (from item in db.Patients.ToList()
                        where (item.ID == patient.ID)
@@ -199,6 +218,7 @@ namespace DAL
         }
         public void AddPatient(Patient patient)
         {
+            PharmacyContext db = new PharmacyContext();
             if (db.Patients.ToList().Exists(item => item.ID == patient.ID) == false)
             {
                 db.Patients.Add(patient);
@@ -211,6 +231,7 @@ namespace DAL
         }
         public void IsExistDoctor(string id)
         {
+            PharmacyContext db = new PharmacyContext();
             if (db.Doctors.ToList().Exists(item => item.ID == id) == false)
                 throw new Exception("doctor doesn't exist");
 
@@ -218,6 +239,7 @@ namespace DAL
 
         public void deletePatient(string id)
         {
+            PharmacyContext db = new PharmacyContext();
             var p = (from item in db.Patients
                      where item.ID == id
                      select item).FirstOrDefault();
@@ -232,12 +254,14 @@ namespace DAL
 
         public IEnumerable<Patient> getAllPatients()
         {
+            PharmacyContext db = new PharmacyContext();
             return db.Patients.ToList();
         }
 
         /////////////////Prescription//////////
         public void AddPrescription(Prescription prescription)
         {
+            PharmacyContext db = new PharmacyContext();
 
             db.Prescriptions.Add(prescription);
 
@@ -246,10 +270,19 @@ namespace DAL
         }
         public IEnumerable<Prescription> getAllPrescriptions()
         {
+            PharmacyContext db = new PharmacyContext();
             return db.Prescriptions.ToList();
 
         }
 
+
+        public void UpdateMedicinePicture(string medicineId, HttpPostedFileBase file)
+        {
+            GoogleDriveApi gd = new GoogleDriveApi();
+            gd.DeleteFile(medicineId.ToString());
+            gd.UplaodFileOnDriveInFolder(file, medicineId.ToString(), "cloudComputing");
+            
+        }
 
 
 
