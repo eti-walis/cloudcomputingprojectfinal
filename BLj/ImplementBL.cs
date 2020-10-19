@@ -32,6 +32,7 @@ namespace BL
                 throw ex;
             }
         }
+
         public void addAdministrator(Administrator administrator)
         {
             DAL.ImplementDAL dal = new DAL.ImplementDAL();
